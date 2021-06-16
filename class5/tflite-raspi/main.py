@@ -56,39 +56,20 @@ def get_spectogram(waveform, target_size = 16000):
     padding = np.zeros(target_shape, dtype=np.float32)
     waveform = waveform.astype(np.float32)
     equal_length = np.concatenate([waveform, padding], 0) #shape: (124, 129)
-    # mfccs = python_speech_features.base.mfcc(equal_length,
-    #                                          samplerate=16000,
-    #                                          winlen=0.003,
-    #                                          winstep=0.01,
-    #                                          numcep=129,
-    #                                          nfilt=129,
-    #                                          nfft=1024,
-    #                                          preemph=0.0,
-    #                                          ceplifter=0,
-    #                                          highfreq = 0,
-    #                                          appendEnergy=False,
-    #                                          winfunc=np.hanning)
-    # mfccs = mfccs.transpose()
-    # print(mfccs.shape)
-    # fig = plt.figure(figsize=(10,10))
-    # plt.imshow(mfccs)
-    # plt.show()
-    # spectrogram = tf.signal.stft(
-    #     equal_length, frame_length=255, frame_step=128)
     f, t, Zxx  = signal.stft(equal_length, nperseg=255)
     spec = np.abs(Zxx)
     print(spec.shape)
     spec = spec[:,:118]
     spec = cv2.resize(spec, (129,124))
     print(spec.shape)
-    log_spec = 10 * np.log(spec)
-    height = log_spec.shape[0]
-    width = log_spec.shape[1]
-    X = np.linspace(0, np.size(Zxx), num=width, dtype=int)
-    Y = range(height)
-    fig = plt.figure(figsize=(10,10))
-    plt.pcolormesh(X, Y, log_spec)
-    plt.show()
+    # log_spec = 10 * np.log(spec)
+    # height = log_spec.shape[0]
+    # width = log_spec.shape[1]
+    # X = np.linspace(0, np.size(Zxx), num=width, dtype=int)
+    # Y = range(height)
+    # fig = plt.figure(figsize=(10,10))
+    # plt.pcolormesh(X, Y, log_spec)
+    # plt.show()
     return spec
 
 def plot_waveform(data):
