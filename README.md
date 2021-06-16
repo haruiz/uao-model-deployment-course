@@ -1,2 +1,2 @@
 # uao-model-deployment
-Code repository for the course Model deployment - AI specialization
+Code repository for the workshop Model deployment 
